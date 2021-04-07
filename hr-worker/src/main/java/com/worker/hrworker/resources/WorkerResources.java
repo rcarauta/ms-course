@@ -17,33 +17,34 @@ import com.worker.hrworker.repositories.WorkerRepository;
 @RestController
 @RequestMapping(value = "/workers")
 public class WorkerResources {
-	
+
 	private static Logger logger = org.slf4j.LoggerFactory.getLogger(WorkerResources.class);
-	
+
 	@Autowired
 	private Environment env;
 
 	@Autowired
 	private WorkerRepository workerRepository;
-	
+
 	@GetMapping
-	public ResponseEntity<List<Worker>> findAll(){
+	public ResponseEntity<List<Worker>> findAll() {
 		List<Worker> list = workerRepository.findAll();
 		return ResponseEntity.ok(list);
 	}
-	
+
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Worker> findById(@PathVariable Long id){
-		
-		/*
-		 * try { Thread.sleep(3000L); } catch (InterruptedException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); }
-		 */
-		
-		logger.info("PORT = "+env.getProperty("local.server.port"));
-		
+	public ResponseEntity<Worker> findById(@PathVariable Long id) {
+
+		try {
+			Thread.sleep(3000L);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		logger.info("PORT = " + env.getProperty("local.server.port"));
+
 		Worker worker = workerRepository.findById(id).get();
 		return ResponseEntity.ok(worker);
 	}
-	
+
 }
